@@ -1,0 +1,91 @@
+{
+  "$schema": "https://developers.reddit.com/schema/config-file.v1.json",
+  "name": "cascade-ban",
+  "server": {
+    "dir": "dist/server",
+    "entry": "index.cjs"
+  },
+  "post": {
+    "dir": "dist/client",
+    "entrypoints": {
+      "default": {
+        "entry": "index.html",
+        "height": "tall"
+      }
+    }
+  },
+  "menu": {
+    "items": [
+      {
+        "label": "Open CascadeBan dashboard",
+        "description": "Open the moderation dashboard for linked subreddits and pending cascade actions.",
+        "location": "subreddit",
+        "forUserType": "moderator",
+        "endpoint": "/internal/menu/open-dashboard"
+      },
+      {
+        "label": "Cascade Ban User",
+        "description": "Ban a post or comment author across this subreddit and approved linked subreddits.",
+        "location": ["post", "comment"],
+        "forUserType": "moderator",
+        "endpoint": "/internal/menu/cascade-user"
+      }
+    ]
+  },
+  "forms": {
+    "cascadeUser": "/internal/form/cascade-user-submit"
+  },
+  "triggers": {
+    "onAppInstall": "/internal/triggers/on-app-install",
+    "onModAction": "/internal/triggers/on-mod-action",
+    "onModMail": "/internal/triggers/on-modmail"
+  },
+  "settings": {
+    "subreddit": {
+      "otherSubreddits": {
+        "type": "paragraph",
+        "label": "Default ban subreddits",
+        "helpText": "One subreddit per line. Approved linked subreddits are included by default in the manual cascade form."
+      },
+      "otherNoteSubreddits": {
+        "type": "paragraph",
+        "label": "Default mod note subreddits",
+        "helpText": "One subreddit per line for manual mod-note fan-out."
+      },
+      "defaultUserMessage": {
+        "type": "paragraph",
+        "label": "Default user message",
+        "helpText": "Supports {{author}}, {{subreddit}}, {{originSubreddit}}, {{title}}, {{url}}, {{body}}, and {{actioningMod}}."
+      },
+      "defaultModNoteLabel": {
+        "type": "select",
+        "label": "Default mod note label",
+        "defaultValue": "ABUSE_WARNING",
+        "options": [
+          { "label": "Abuse Warning",      "value": "ABUSE_WARNING" },
+          { "label": "Spam Warning",       "value": "SPAM_WARNING" },
+          { "label": "Spam Watch",         "value": "SPAM_WATCH" },
+          { "label": "Solid Contributor",  "value": "SOLID_CONTRIBUTOR" },
+          { "label": "Helpful User",       "value": "HELPFUL_USER" },
+          { "label": "Ban",                "value": "BAN" },
+          { "label": "Bot Ban",            "value": "BOT_BAN" },
+          { "label": "Perma Ban",          "value": "PERMA_BAN" }
+        ]
+      }
+    }
+  },
+  "scripts": {
+    "build": "vite build",
+    "dev": "vite build --watch"
+  },
+  "permissions": {
+    "reddit": {
+      "enable": true,
+      "scope": "moderator"
+    },
+    "redis": true
+  },
+  "dev": {
+    "subreddit": "cascade_ban_dev"
+  }
+}
