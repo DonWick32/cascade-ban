@@ -49,6 +49,70 @@ It supports the existing ModMail command workflow, native Reddit ban/unban actio
 
 ---
 
+## 🏗️ Architecture & Workflows
+
+### 1. Linking Handshake
+This workflow demonstrates how two subreddits establish a connection to share ban/unban requests.
+
+```mermaid
+sequenceDiagram
+    participant SubA as Subreddit A
+    participant SubB as Subreddit B
+    
+    SubA->>SubB: Initiates Link Request (UI or !link)
+    Note over SubB: Request appears in Dashboard<br/>and as ModMail
+    SubB->>SubA: Approves Link (UI or !approve-link)
+    Note over SubA,SubB: Link Established
+    SubA-->>SubB: Ban/Unban Events Synchronized
+    SubB-->>SubA: Ban/Unban Events Synchronized
+```
+
+### 2. Cascade Ban Workflow
+When a moderator bans a user in one subreddit, the action propagates to allied subreddits.
+
+```mermaid
+flowchart TD
+    A[Mod bans user in Subreddit A] --> B{Action Source}
+    B -->|Native Reddit Ban| C[Devvit Trigger Detects Ban]
+    B -->|Mod Menu Action| D[Devvit Action Handler]
+    
+    C --> E[Log Ban Event]
+    D --> E
+    
+    E --> F[Fetch Linked Subreddits]
+    F --> G{Is Link Active?}
+    G -->|Yes| H[Send Cascade Request to Sub B]
+    G -->|No| I[End]
+    
+    H --> J{Sub B Config}
+    J -->|Auto-ban enabled| K[Execute Ban in Sub B]
+    J -->|Manual approval required| L[Queue in Sub B Dashboard]
+    
+    L --> M[Mod B Approves via UI/ModMail]
+    M --> K
+```
+
+### 3. Cascade Unban Workflow
+Similarly, unbanning a user propagates the reversal to the linked subreddits.
+
+```mermaid
+flowchart TD
+    A[Mod unbans user in Subreddit A] --> B[Devvit Trigger / Action Handler]
+    B --> C[Fetch Linked Subreddits]
+    C --> D{Is Link Active?}
+    D -->|Yes| E[Send Cascade Unban to Sub B]
+    D -->|No| F[End]
+    
+    E --> G{Sub B Config}
+    G -->|Auto-unban enabled| H[Execute Unban in Sub B]
+    G -->|Manual approval required| I[Queue in Sub B Dashboard]
+    
+    I --> J[Mod B Approves]
+    J --> H
+```
+
+---
+
 ## 🚀 Local Setup & Development
 
 To run this app locally in your own testing subreddit:
