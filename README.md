@@ -1,5 +1,6 @@
 # Cascade Ban
 
+*(Click the image below to play the demo video)*<br/>
 [![Cascade Ban Demo](https://img.youtube.com/vi/L9yDxKsjcrI/maxresdefault.jpg)](https://www.youtube.com/watch?v=L9yDxKsjcrI)
 
 > **Synchronize ban and unban decisions across a cluster of allied subreddits natively in Devvit.**
