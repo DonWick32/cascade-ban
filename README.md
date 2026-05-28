@@ -1,8 +1,45 @@
 # Cascade Ban
 
-Cascade Ban is a Devvit moderation tool for synchronizing ban and unban decisions across a cluster of allied subreddits. It supports the existing ModMail command workflow, native Reddit ban/unban actions, and a custom-post dashboard for reviewing links and pending cascade requests from the UI.
+[![Cascade Ban Demo](https://img.youtube.com/vi/L9yDxKsjcrI/maxresdefault.jpg)](https://www.youtube.com/watch?v=L9yDxKsjcrI)
 
-## Features
+> **Synchronize ban and unban decisions across a cluster of allied subreddits natively in Devvit.**
+
+Cascade Ban is a powerful moderation tool designed for communities that work together. It allows a network of subreddits to seamlessly share bans and unbans, reducing the administrative burden on moderators while keeping bad actors out. 
+
+It supports the existing ModMail command workflow, native Reddit ban/unban actions, and a custom-post dashboard for reviewing links and pending cascade requests from a unified UI.
+
+---
+
+## 📸 Screenshots & Workflow
+
+### Full UI Dashboard
+![Full UI](docs/full_ui.png)
+
+### Mod Menu Integration
+![Mod Menu Action](docs/mod_menu_cascade_ban.png)
+
+### Dashboard Access Point
+![Dashboard Access Point](docs/dashboard_access_point.jpg)
+
+### Subreddit Links Management
+![Subreddit Links](docs/subreddit_links.jpg)
+
+### Mod Note Integration
+![Mod Note Example](docs/mod_note_example.png)
+
+### Banned User Example
+![Banned User](docs/banned_user_reddit_screenshot.jpg)
+
+### ModMail Communication
+![ModMail Communication](docs/mod_mail_communication.jpg)
+
+### Audit Logs
+![Audit Logs](docs/audit.png)
+
+---
+
+## ✨ Features
+
 - **Dashboard Post**: Open a private CascadeBan dashboard from the subreddit menu to manage links, pending ban/unban requests, failures, and recent activity.
 - **Cluster Linking**: Request, approve, pause, or reactivate subreddit links from the dashboard. ModMail commands (`!link r/Subreddit`, `!approve-link r/Subreddit`) continue to work.
 - **Native Reddit Ban Support**: Bans and unbans performed through Reddit's normal moderator UI create dashboard-visible cascade requests for linked subreddits.
@@ -10,7 +47,9 @@ Cascade Ban is a Devvit moderation tool for synchronizing ban and unban decision
 - **Cross-Subreddit UI Actions**: Use the post/comment menu to ban a user or add mod notes across the current subreddit and approved linked subreddits.
 - **Audit Trail**: Dashboard activity records link changes, request approvals, rejections, applied actions, and failures.
 
-## Local Setup & Development
+---
+
+## 🚀 Local Setup & Development
 
 To run this app locally in your own testing subreddit:
 
@@ -31,7 +70,9 @@ To run this app locally in your own testing subreddit:
    devvit playtest
    ```
 
-## App Settings
+---
+
+## ⚙️ App Settings
 
 After installing, configure the following options in the app's settings:
 
@@ -40,7 +81,9 @@ After installing, configure the following options in the app's settings:
 - **Default Mod Note Label**: Label used when adding manual mod notes.
 - **Default User Message**: Message sent to users when banned. Supports placeholders: `{{author}}`, `{{subreddit}}`, `{{kind}}`, `{{originSubreddit}}`, `{{url}}`, and `{{actioningMod}}`.
 
-## Commands
+---
+
+## 🛠️ Commands
 
 Moderators can use the following commands in ModMail to manage the cascade network:
 - `!link r/Subreddit`: Propose a link to another subreddit.
